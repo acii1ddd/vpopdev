@@ -1,0 +1,51 @@
+services:
+  master:
+    image: postgres:17.0
+    ports:
+      - 5433:5432
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: 123
+      POSTGRES_DB: users
+      PGDATA: /data
+    volumes:
+      - ${PWD}/pgdata-master:/data
+      - ${PWD}/cfg:/config
+      - ${PWD}/archive:/mnt/server/archive
+      - ${PWD}/00_init.sql:/docker-entrypoint-initdb.d/00_init.sql
+    command: | 
+      postgres -c config_file=./config/postgresql.conf
+    networks:
+      - devpops2
+  
+  slave:
+    image: postgres:17.0
+    environment:
+      POSTGRES_PASSWORD: 123
+    ports:
+      - 5434:5432
+    volumes:
+      - ${PWD}/pgdata-slave:/data
+    networks:
+      - devpops2
+
+networks:
+  devpops2:
+    driver: bridge
+
+# host    replication     replicator      0.0.0.0/0               md5
+# pg_basebackup -h master -p 5432 -U replicator -D /data/ -Fp -Xs -R
+# docker exec -it postgres-1 bash
+# # create a new user
+# createuser -U postgresadmin -P -c 5 --replication replicationUser
+# exit
+
+
+# -e POSTGRES_USER=postgresadmin `
+# -e POSTGRES_PASSWORD=admin123 `
+# -e POSTGRES_DB=postgresdb `
+# -e PGDATA="/data" `
+# -v ${PWD}/pgdata:/data `
+# -v ${PWD}/config:/config `
+# -p 5000:5432 `
+# postgres:15.0 -c 'config_file=/config/postgresql.conf'
