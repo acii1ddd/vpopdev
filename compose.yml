@@ -4,17 +4,16 @@ services:
     ports:
       - 5433:5432
     environment:
-      POSTGRES_USER: user
       POSTGRES_PASSWORD: 123
-      POSTGRES_DB: users
-      PGDATA: /data
     volumes:
-      - ${PWD}/pgdata-master:/data
-      - ${PWD}/cfg:/config
-      - ${PWD}/archive:/mnt/server/archive
+      - ${PWD}/pgdata-master:/var/lib/postgresql/data
       - ${PWD}/00_init.sql:/docker-entrypoint-initdb.d/00_init.sql
-    command: | 
-      postgres -c config_file=./config/postgresql.conf
+    command: > 
+       postgres -c wal_level=replica
+               -c max_wal_senders=10
+               -c max_replication_slots=10
+               -c hot_standby=on
+ 
     networks:
       - devpops2
   
@@ -25,7 +24,7 @@ services:
     ports:
       - 5434:5432
     volumes:
-      - ${PWD}/pgdata-slave:/data
+      - ${PWD}/pgdata-slave:/var/lib/postgresql/data
     networks:
       - devpops2
 
@@ -48,4 +47,5 @@ networks:
 # -v ${PWD}/pgdata:/data `
 # -v ${PWD}/config:/config `
 # -p 5000:5432 `
+# хуйня ебанная
 # postgres:15.0 -c 'config_file=/config/postgresql.conf'
