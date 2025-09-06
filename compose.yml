@@ -1,36 +1,58 @@
 services:
   master:
     image: postgres:17.0
+    container_name: master
     ports:
-      - 5433:5432
+      - "5433:5432"
     environment:
       POSTGRES_PASSWORD: 123
     volumes:
-      - ${PWD}/pgdata-master:/var/lib/postgresql/data
-      - ${PWD}/00_init.sql:/docker-entrypoint-initdb.d/00_init.sql
-    command: > 
-       postgres -c wal_level=replica
-               -c max_wal_senders=10
-               -c max_replication_slots=10
-               -c hot_standby=on
- 
+      - ./pgdata-master:/var/lib/postgresql/data
+      - ./scripts/init_master.sh:/docker-entrypoint-initdb.d/init_master.sh
     networks:
       - devpops2
-  
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      timeout: 3s
+      retries: 5
+    command: >
+        postgres 
+          -c wal_level=replica
+          -c max_wal_senders=10
+          -c max_replication_slots=10
+          -c hot_standby=on
+    
   slave:
     image: postgres:17.0
+    container_name: slave
     environment:
       POSTGRES_PASSWORD: 123
+    entrypoint: /docker-entrypoint-initdb.d/init_slave.sh # запускается перед конфигурацией postgres
     ports:
-      - 5434:5432
+      - "5434:5432"
     volumes:
-      - ${PWD}/pgdata-slave:/var/lib/postgresql/data
+      - ./pgdata-slave:/var/lib/postgresql/data
+      - ./scripts/init_slave.sh:/docker-entrypoint-initdb.d/init_slave.sh
+    depends_on:
+      master:
+        condition: service_healthy
     networks:
       - devpops2
 
 networks:
   devpops2:
     driver: bridge
+
+
+# /root/.pgpass
+# hostname:port:database:username:password
+# master:5432:replication:replicator:123
+# chmod 0600 ~/.pgpass
+# passfile=''/root/.pgpass''
+
+# pg_stat_replication - отображает каждую активную (подключённую) реплику, которая обслуживается своим процессом walsender.
+# psql -U postgres -c "SELECT pg_reload_conf();"
 
 # host    replication     replicator      0.0.0.0/0               md5
 # pg_basebackup -h master -p 5432 -U replicator -D /data/ -Fp -Xs -R
