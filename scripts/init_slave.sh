@@ -16,12 +16,11 @@ if [ ! -s "$PGDATA/PG_VERSION" ]; then
     chown postgres:postgres /var/lib/postgresql/.pgpass
     chmod 0600 "$PGPASS_PATH"
 
-
     log ".pgpass file is configurated successfully."
 
-    log "Data folder is cleaning..."
-    rm -rf /var/lib/postgresql/data/*
-    log "Data folder is cleaned successfully."
+    # log "Data folder is cleaning..."
+    # rm -rf /var/lib/postgresql/data/*
+    # log "Data folder is cleaned successfully."
 
     log "Backup start up..."
     pg_basebackup -h master -p 5432 -U replicator -D /var/lib/postgresql/data -Fp -Xs -P -R
