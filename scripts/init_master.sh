@@ -1,16 +1,29 @@
 #!/bin/bash
 
-#postgres.conf
-echo "wal_level = replica" >> ${PGDATA}/postgresql.conf
-echo "max_wal_senders = 3" >> ${PGDATA}/postgresql.conf
+log() {
+  echo "$(date '+%Y-%m-%d %H:%M:%S') [MASTER INIT] $1"
+}
+
+# если одна команда падает - падает скрипт
+set -e
+
+#postgresql.conf
+#echo "wal_level=replica" >> ${PGDATA}/postgresql.conf
+#echo "max_wal_senders=3" >> ${PGDATA}/postgresql.conf
 
 #pg_hba.conf
-echo "host    replication     replicator      0.0.0.0/0               trust" >> ${PGDATA}/pg_hba.conf
+echo "host replication replicator all md5" >> ${PGDATA}/pg_hba.conf
+log "pg_hba.conf is configurated successfully."
 
 #ожидаем готовности базы данных
-until pg_isready -U maxim; do
-  echo "wait ..."
+until pg_isready -U user -d devpops; do
+  log "wait ..."
   sleep 2
 done
+log "Database is ready."
 
-psql -U maxim -d elk -c "CREATE ROLE replicator WITH REPLICATION LOGIN;"
+psql -U user -d devpops -c "create role replicator with login replication password '123';"
+log "Role replicator is created successfully"
+
+psql -U user -d devpops -c "alter role replicator connection limit 5;"
+log "Connection limit is restricted to 5"

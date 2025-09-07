@@ -1,43 +1,62 @@
 services:
   master:
     image: postgres:17.0
+    container_name: master
     ports:
-      - 5433:5432
+      - "5433:5432"
     environment:
-      POSTGRES_USER: maxim
+      POSTGRES_USER: user # Не создаёт postgres пользователя
       POSTGRES_PASSWORD: 123
-      POSTGRES_DB: elk
+      POSTGRES_DB: devpops
     volumes:
-      - ${PWD}/data/pgdata-master:/var/lib/postgresql/data
-      - ${PWD}/scripts/init_master.sh:/docker-entrypoint-initdb.d/init_master.sh
+      - ./data/pgdata-master:/var/lib/postgresql/data
+      - ./scripts/init_master.sh:/docker-entrypoint-initdb.d/init_master.sh
     networks:
       - devpops2
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U maxim -d elk"]
-      interval: 10s
-      timeout: 5s
+      test: ["CMD-SHELL", "pg_isready -U user -d devpops"]
+      interval: 5s
+      timeout: 3s
       retries: 5
-      start_period: 10s
-  
+    command: >
+        postgres 
+          -c wal_level=replica
+          -c max_wal_senders=10
+          -c max_replication_slots=10
+          -c hot_standby=on
+    
   slave:
     image: postgres:17.0
+    container_name: slave
     environment:
+      POSTGRES_USER: postgres # не будет в slave, так как нет на master
       POSTGRES_PASSWORD: 123
-    entrypoint: /docker-entrypoint-initdb.d/init_slave.sh #запускается перед конфигурацией postgres
+    entrypoint: /docker-entrypoint-initdb.d/init_slave.sh # запускается перед конфигурацией postgres
     ports:
-      - 5434:5432
+      - "5434:5432"
     volumes:
-      - ${PWD}/data/pgdata-slave:/var/lib/postgresql/data
-      - ${PWD}/scripts/init_slave.sh:/docker-entrypoint-initdb.d/init_slave.sh
-    networks:
-      - devpops2
+      - ./data/pgdata-slave:/var/lib/postgresql/data
+      - ./scripts/init_slave.sh:/docker-entrypoint-initdb.d/init_slave.sh
     depends_on:
       master:
         condition: service_healthy
+    networks:
+      - devpops2
 
 networks:
   devpops2:
     driver: bridge
+
+# dos2unix ./scripts/init_slave.sh
+
+# /root/.pgpass
+# hostname:port:database:username:password
+# master:5432:replication:replicator:123
+# chmod 0600 ~/.pgpass
+# passfile=''/root/.pgpass''
+
+# pg_stat_replication - отображает каждую активную (подключённую) реплику, которая обслуживается своим процессом walsender.
+# psql -U postgres -c "SELECT pg_reload_conf();"
 
 # host    replication     replicator      0.0.0.0/0               md5
 # pg_basebackup -h master -p 5432 -U replicator -D /data/ -Fp -Xs -R
