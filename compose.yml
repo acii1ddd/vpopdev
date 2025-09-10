@@ -1,4 +1,16 @@
 services:
+  etcd:
+    image: quay.io/coreos/etcd:v3.6.4
+    container_name: etcd
+    ports:
+      - "2379:2379"
+    environment:
+      - ETCD_NAME=etcd
+      - ETCD_LISTEN_CLIENT_URLS=http://0.0.0.0:2379
+      - ETCD_ADVERTISE_CLIENT_URLS=http://etcd:2379
+    networks:
+      - devpops2
+
   master:
     image: postgres:17.0
     container_name: master
@@ -24,7 +36,7 @@ services:
           -c max_wal_senders=10
           -c max_replication_slots=10
           -c hot_standby=on
-    
+
   slave:
     image: postgres:17.0
     container_name: slave
@@ -73,5 +85,4 @@ networks:
 # -v ${PWD}/pgdata:/data `
 # -v ${PWD}/config:/config `
 # -p 5000:5432 `
-# хуйня ебанная
 # postgres:15.0 -c 'config_file=/config/postgresql.conf'
