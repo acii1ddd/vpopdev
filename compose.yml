@@ -24,7 +24,7 @@ services:
           -c max_wal_senders=10
           -c max_replication_slots=10
           -c hot_standby=on
-    
+    # хуйло
   slave:
     image: postgres:17.0
     container_name: slave
