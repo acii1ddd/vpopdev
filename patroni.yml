@@ -2,29 +2,18 @@ scope: patroni
 namespace: /service/
 
 restapi:
-  listen: 0.0.0.0:8008
+  # слушает на этом порту на всех интерфейсах
+  listen: 0.0.0.0:8008 
+  # публикуется в dcs, чтобы другие в кластере могли обращаться к этому patroni
   connect_address: ${PATRONI_RESTAPI_CONNECT_ADDRESS}
 
 bootstrap:
   dcs:
     ttl: 30
     loop_wait: 10
-    retry_timeout: 10
     maximum_lag_on_failover: 1048576
     postgresql:
       use_pg_rewind: true
-      use_slots: true
-      parameters:
-        max_connections: 100
-        shared_buffers: 128MB
-        dynamic_shared_memory_type: posix
-        max_wal_senders: 10
-        max_replication_slots: 10
-        wal_level: replica
-        hot_standby: on
-        wal_keep_size: 128MB
-        max_wal_size: 1GB
-        min_wal_size: 80MB
 
   postgresql:
     use_pg_rewind: true
@@ -37,7 +26,7 @@ bootstrap:
   - host replication all all md5
   - host all all all md5
 
-etcd:
+etcd3:
   hosts:
   - etcd:2379
 
@@ -49,8 +38,17 @@ postgresql:
   parameters:
     unix_socket_directories: /var/run/postgresql
 
+# authentication:
+#   replication:
+#     username: ${PATRONI_REPLICATION_USERNAME}
+#     password: ${PATRONI_REPLICATION_PASSWORD}
+#   superuser:
+#     username: ${PATRONI_SUPERUSER_USERNAME}
+#     password: ${PATRONI_SUPERUSER_PASSWORD}
+
+# защита от split-brain - когда 2 ноты из-за сбоя считают себя мастером
 watchdog:
-  mode: off
+ mode: off
 
 tags:
   nofailover: false
