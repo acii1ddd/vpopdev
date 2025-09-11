@@ -13,13 +13,13 @@ bootstrap:
   postgresql:
     use_pg_rewind: true
 
-initdb:
-- encoding: UTF8
-- data-checksums
+  initdb:
+  - encoding: UTF8
+  - data-checksums
 
-pg_hba:
-- host replication all all md5
-- host all all all md5
+  pg_hba:
+  - host replication all all md5
+  - host all all all md5
 
 etcd:
   hosts:

@@ -54,22 +54,41 @@ services:
   #     master:
   #       condition: service_healthy
   #   networks:
-  #     - devpops2
+      # - devpops2
 
   test:
     build: .
     entrypoint: [/bin/sh, /entrypoint.sh]
+    restart: unless-stopped
     volumes:
       - ./patroni.yml:/patroni.yml:ro
       - ./entrypoint.sh:/entrypoint.sh:ro
-      - ./data/test-data:/var/lib/postgresql/patroni/main
+      - ./data/test-data-1:/var/lib/postgresql/patroni/main
     environment:
       PATRONI_API_CONNECT_PORT: 8008
       REPLICATION_NAME: replicator
-      REPLICATION_PASS: pass
-      SU_NAME: user
-      SU_PASS: pass
-      POSTGRES_APP_ROLE_PASS: appass
+      REPLICATION_PASS: replpass
+      SU_NAME: postgres
+      SU_PASS: supass
+    depends_on:
+      - etcd
+    networks:
+      - devpops2
+
+  test_2:
+    build: .
+    entrypoint: [/bin/sh, /entrypoint.sh]
+    restart: unless-stopped
+    volumes:
+      - ./patroni.yml:/patroni.yml:ro
+      - ./entrypoint.sh:/entrypoint.sh:ro
+      - ./data/test-data-2:/var/lib/postgresql/patroni/main
+    environment:
+      PATRONI_API_CONNECT_PORT: 8008
+      REPLICATION_NAME: replicator
+      REPLICATION_PASS: replpass
+      SU_NAME: postgres
+      SU_PASS: supass
     depends_on:
       - etcd
     networks:

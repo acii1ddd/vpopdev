@@ -9,8 +9,10 @@ RUN apt update \
     && apt clean \
     && rm -rf /var/lib/apt/lists/* /var/cache/* \
     && mkdir -p /var/lib/postgresql \
-    && chown postgres:postgres /var/lib/postgresql \
-    && chmod 700 /var/lib/postgresql
+    && chown postgres:postgres /var/lib/postgresql/\
+    && chmod 750 /var/lib/postgresql/
+
+
 
 USER postgres
 
