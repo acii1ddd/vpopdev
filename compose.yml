@@ -56,39 +56,61 @@ services:
   #   networks:
       # - devpops2
 
-  test:
+  patroni-1:
     build: .
     entrypoint: [/bin/sh, /entrypoint.sh]
     restart: unless-stopped
     volumes:
       - ./patroni.yml:/patroni.yml:ro
       - ./entrypoint.sh:/entrypoint.sh:ro
-      - ./data/test-data-1:/var/lib/postgresql/patroni/main
+      - test-data-1:/var/lib/postgresql/patroni/main
     environment:
       PATRONI_API_CONNECT_PORT: 8008
       REPLICATION_NAME: replicator
       REPLICATION_PASS: replpass
       SU_NAME: postgres
       SU_PASS: supass
+      POSTGRES_APP_ROLE_PASS: appass
     depends_on:
       - etcd
     networks:
       - devpops2
 
-  test_2:
+  patroni-2:
     build: .
     entrypoint: [/bin/sh, /entrypoint.sh]
     restart: unless-stopped
     volumes:
       - ./patroni.yml:/patroni.yml:ro
       - ./entrypoint.sh:/entrypoint.sh:ro
-      - ./data/test-data-2:/var/lib/postgresql/patroni/main
+      - test-data-2:/var/lib/postgresql/patroni/main
     environment:
       PATRONI_API_CONNECT_PORT: 8008
       REPLICATION_NAME: replicator
       REPLICATION_PASS: replpass
       SU_NAME: postgres
       SU_PASS: supass
+      POSTGRES_APP_ROLE_PASS: appass
+    depends_on:
+      - etcd
+    networks:
+      - devpops2
+
+  patroni-3:
+    build: .
+    entrypoint: [/bin/sh, /entrypoint.sh]
+    restart: unless-stopped
+    volumes:
+      - ./patroni.yml:/patroni.yml:ro
+      - ./entrypoint.sh:/entrypoint.sh:ro
+      - test-data-3:/var/lib/postgresql/patroni/main
+    environment:
+      PATRONI_API_CONNECT_PORT: 8008
+      REPLICATION_NAME: replicator
+      REPLICATION_PASS: replpass
+      SU_NAME: postgres
+      SU_PASS: supass
+      POSTGRES_APP_ROLE_PASS: appass
     depends_on:
       - etcd
     networks:
@@ -97,6 +119,11 @@ services:
 networks:
   devpops2:
     driver: bridge
+
+volumes:
+  test-data-1:
+  test-data-2:
+  test-data-3:
 
 # dos2unix ./scripts/init_slave.sh
 

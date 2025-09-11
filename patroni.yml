@@ -1,6 +1,10 @@
 scope: patroni
 namespace: /service/
 
+restapi:
+  listen: 0.0.0.0:8008
+  connect_address: ${PATRONI_RESTAPI_CONNECT_ADDRESS}
+
 bootstrap:
   dcs:
     ttl: 30
@@ -9,6 +13,18 @@ bootstrap:
     maximum_lag_on_failover: 1048576
     postgresql:
       use_pg_rewind: true
+      use_slots: true
+      parameters:
+        max_connections: 100
+        shared_buffers: 128MB
+        dynamic_shared_memory_type: posix
+        max_wal_senders: 10
+        max_replication_slots: 10
+        wal_level: replica
+        hot_standby: on
+        wal_keep_size: 128MB
+        max_wal_size: 1GB
+        min_wal_size: 80MB
 
   postgresql:
     use_pg_rewind: true

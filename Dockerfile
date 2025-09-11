@@ -1,6 +1,6 @@
 FROM postgres:17.0
 
-ENV PATRONI_VERSION=4.0.5-1.pgdg120+1
+ENV PASTRONI_VERION=4.0.5-1.pgdg120+1
 
 RUN apt update \
     && apt install -y --no-install-recommends \
@@ -10,9 +10,7 @@ RUN apt update \
     && rm -rf /var/lib/apt/lists/* /var/cache/* \
     && mkdir -p /var/lib/postgresql \
     && chown postgres:postgres /var/lib/postgresql/\
-    && chmod 750 /var/lib/postgresql/
-
-
+    && chmod 700 /var/lib/postgresql/
 
 USER postgres
 
