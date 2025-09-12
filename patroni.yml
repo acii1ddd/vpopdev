@@ -17,6 +17,11 @@ bootstrap:
 
   postgresql:
     use_pg_rewind: true
+    parameters:
+      wal_level: replica
+      max_wal_senders: 10
+      max_replication_slots: 10
+      hot_standby: "on"
 
   initdb:
   - encoding: UTF8
@@ -37,6 +42,12 @@ postgresql:
   pgpass: /tmp/pgpass0
   parameters:
     unix_socket_directories: /var/run/postgresql
+    
+  # slots:
+  #   patroni-1:
+  #     type: physical
+  #   patroni-3:
+  #     type: physical
 
 # authentication:
 #   replication:

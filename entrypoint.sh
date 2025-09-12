@@ -51,9 +51,10 @@ log "PATRONI_POSTGRESQL_LISTEN set to: ${PATRONI_POSTGRESQL_LISTEN}"
 #export PATRONI_approle_PASSWORD="$POSTGRES_APP_ROLE_PASS"
 #export PATRONI_approle_OPTIONS="${PATRONI_admin_OPTIONS:-createdb, createrole}"
 
-chown -R postgres:postgres /var/lib/postgresql/patroni
-chmod 700 /var/lib/postgresql/patroni
+chown -R postgres:postgres /var/lib/postgresql/patroni/main
+chmod 700 /var/lib/postgresql/patroni/main
 
+echo ">>> Permissions fixed, starting Patroni"
 
 exec su -s /bin/sh postgres -c "/usr/bin/patroni /patroni.yml"
 #exec /usr/bin/patroni /patroni.yml
