@@ -6,8 +6,7 @@ log() {
   echo "$(date '+%Y-%m-%d %H:%M:%S') [MASTER INIT] $1"
 }
 
-# ports: 5432, 8008 
-
+# ports: 5432, 8008
 readonly CONTAINER_IP=$(hostname --ip-address)
 
 # адрес ip:port, где будет слушать patroni внутри контейнера 
@@ -43,18 +42,9 @@ export PATRONI_POSTGRESQL_LISTEN="$CONTAINER_POSTGRE_ADDR"
 
 log "PATRONI_POSTGRESQL_LISTEN set to: ${PATRONI_POSTGRESQL_LISTEN}"
 
-#export PATRONI_REPLICATION_USERNAME="$REPLICATION_NAME"
-#export PATRONI_REPLICATION_PASSWORD="$REPLICATION_PASS"
-#export PATRONI_SUPERUSER_USERNAME="$SU_NAME"
-#export PATRONI_SUPERUSER_PASSWORD="$SU_PASS"
-
-#export PATRONI_approle_PASSWORD="$POSTGRES_APP_ROLE_PASS"
-#export PATRONI_approle_OPTIONS="${PATRONI_admin_OPTIONS:-createdb, createrole}"
-
 chown -R postgres:postgres /var/lib/postgresql/patroni/main
 chmod 700 /var/lib/postgresql/patroni/main
 
 echo ">>> Permissions fixed, starting Patroni"
 
 exec su -s /bin/sh postgres -c "/usr/bin/patroni /patroni.yml"
-#exec /usr/bin/patroni /patroni.yml

@@ -33,7 +33,9 @@ bootstrap:
 
 etcd3:
   hosts:
-  - etcd:2379
+  - etcd-1:2379
+  - etcd-2:2379
+  - etcd-3:2379
 
 postgresql:
   listen: 0.0.0.0:5432
@@ -42,20 +44,6 @@ postgresql:
   pgpass: /tmp/pgpass0
   parameters:
     unix_socket_directories: /var/run/postgresql
-    
-  # slots:
-  #   patroni-1:
-  #     type: physical
-  #   patroni-3:
-  #     type: physical
-
-# authentication:
-#   replication:
-#     username: ${PATRONI_REPLICATION_USERNAME}
-#     password: ${PATRONI_REPLICATION_PASSWORD}
-#   superuser:
-#     username: ${PATRONI_SUPERUSER_USERNAME}
-#     password: ${PATRONI_SUPERUSER_PASSWORD}
 
 # защита от split-brain - когда 2 ноты из-за сбоя считают себя мастером
 watchdog:
