@@ -1,118 +1,126 @@
+x-patroni-env: &patroni-env
+  PATRONI_API_CONNECT_PORT: 8008 # patroni слушает внутри контейнера
+  PATRONI_REPLICATION_USERNAME: replicator
+  PATRONI_REPLICATION_PASSWORD: replpass
+  PATRONI_SUPERUSER_USERNAME: postgres
+  PATRONI_SUPERUSER_PASSWORD: supass
+  #  POSTGRES_APP_ROLE_PASS: appass
+
 services:
-  etcd:
+  etcd1:
+    hostname: etcd1
     image: quay.io/coreos/etcd:v3.5.18
-    container_name: etcd
-    ports:
-      - "2379:2379"
+    entrypoint: /usr/local/bin/etcd
+    container_name: etcd1
+    # ports:
+    #   - "2379:2379"
+    #   - "2380:2380"
     environment:
-      - ETCD_NAME=etcd
+      - ETCD_NAME=etcd1
+      - ETCD_DATA_DIR=/etcd-data
       - ETCD_LISTEN_CLIENT_URLS=http://0.0.0.0:2379
-      - ETCD_ADVERTISE_CLIENT_URLS=http://etcd:2379
-      - ETCD_ENABLE_V2=true
+      - ETCD_ADVERTISE_CLIENT_URLS=http://etcd1:2379 # чтобы patroni знал в какой порт обращаться
+
+      - ETCD_INITIAL_ADVERTISE_PEER_URLS=http://etcd1:2380
+      - ETCD_LISTEN_PEER_URLS=http://0.0.0.0:2380
+      - ETCD_INITIAL_CLUSTER=etcd1=http://etcd1:2380,etcd2=http://etcd2:2380,etcd3=http://etcd3:2380
+      - ETCD_INITIAL_CLUSTER_TOKEN=${SECRET}
+      - ETCD_INITIAL_CLUSTER_STATE=new
     networks:
       - devpops2
 
-  # master:
-  #   image: postgres:17.0
-  #   container_name: master
-  #   ports:
-  #     - "5433:5432"
-  #   environment:
-  #     POSTGRES_USER: user # Не создаёт postgres пользователя
-  #     POSTGRES_PASSWORD: 123
-  #     POSTGRES_DB: devpops
-  #   volumes:
-  #     - ./data/pgdata-master:/var/lib/postgresql/data
-  #     - ./scripts/init_master.sh:/docker-entrypoint-initdb.d/init_master.sh
-  #   networks:
-  #     - devpops2
-  #   healthcheck:
-  #     test: ["CMD-SHELL", "pg_isready -U user -d devpops"]
-  #     interval: 5s
-  #     timeout: 3s
-  #     retries: 5
-  #   command: >
-  #       postgres 
-  #         -c wal_level=replica
-  #         -c max_wal_senders=10
-  #         -c max_replication_slots=10
-  #         -c hot_standby=on
+  etcd2:
+    hostname: etcd2
+    image: quay.io/coreos/etcd:v3.5.18
+    entrypoint: /usr/local/bin/etcd
+    container_name: etcd2
+    # ports:
+    #   - "2381:2379"
+    #   - "2382:2380"
+    environment:
+      - ETCD_NAME=etcd2
+      - ETCD_DATA_DIR=/etcd-data
+      - ETCD_LISTEN_CLIENT_URLS=http://0.0.0.0:2379
+      - ETCD_ADVERTISE_CLIENT_URLS=http://etcd2:2379
 
-  # slave:
-  #   image: postgres:17.0
-  #   container_name: slave
-  #   environment:
-  #     POSTGRES_USER: postgres # не будет в slave, так как нет на master
-  #     POSTGRES_PASSWORD: 123
-  #   entrypoint: /docker-entrypoint-initdb.d/init_slave.sh # запускается перед конфигурацией postgres
-  #   ports:
-  #     - "5434:5432"
-  #   volumes:
-  #     - ./data/pgdata-slave:/var/lib/postgresql/data
-  #     - ./scripts/init_slave.sh:/docker-entrypoint-initdb.d/init_slave.sh
-  #   depends_on:
-  #     master:
-  #       condition: service_healthy
-  #   networks:
-      # - devpops2
+      - ETCD_INITIAL_ADVERTISE_PEER_URLS=http://etcd2:2380
+      - ETCD_LISTEN_PEER_URLS=http://0.0.0.0:2380
+      - ETCD_INITIAL_CLUSTER=etcd1=http://etcd1:2380,etcd2=http://etcd2:2380,etcd3=http://etcd3:2380
+      - ETCD_INITIAL_CLUSTER_TOKEN=${SECRET}
+      - ETCD_INITIAL_CLUSTER_STATE=new
+    networks:
+      - devpops2
+
+  etcd3:
+    hostname: etcd3
+    image: quay.io/coreos/etcd:v3.5.18
+    entrypoint: /usr/local/bin/etcd
+    container_name: etcd3
+    # ports:
+    #   - "2383:2379"
+    #   - "2384:2380"
+    environment:
+      - ETCD_NAME=etcd3
+      - ETCD_DATA_DIR=/etcd-data
+      - ETCD_LISTEN_CLIENT_URLS=http://0.0.0.0:2379
+      - ETCD_ADVERTISE_CLIENT_URLS=http://etcd3:2379
+
+      - ETCD_INITIAL_ADVERTISE_PEER_URLS=http://etcd3:2380
+      - ETCD_LISTEN_PEER_URLS=http://0.0.0.0:2380
+      - ETCD_INITIAL_CLUSTER=etcd1=http://etcd1:2380,etcd2=http://etcd2:2380,etcd3=http://etcd3:2380
+      - ETCD_INITIAL_CLUSTER_TOKEN=${SECRET}
+      - ETCD_INITIAL_CLUSTER_STATE=new
+    networks:
+      - devpops2
 
   patroni-1:
+    container_name: patroni-1
     build: .
-    entrypoint: [/bin/sh, /entrypoint.sh]
-    restart: unless-stopped
+    hostname: patroni-1
     volumes:
       - ./patroni.yml:/patroni.yml:ro
       - ./entrypoint.sh:/entrypoint.sh:ro
-      - test-data-1:/var/lib/postgresql/patroni/main
-    environment:
-      PATRONI_API_CONNECT_PORT: 8008
-      REPLICATION_NAME: replicator
-      REPLICATION_PASS: replpass
-      SU_NAME: postgres
-      SU_PASS: supass
-      POSTGRES_APP_ROLE_PASS: appass
+      - test-data-1:/var/lib/postgresql/patroni/main # волумом владеет root
+    environment: *patroni-env
+    entrypoint: [/bin/sh, /entrypoint.sh]
     depends_on:
-      - etcd
+      - etcd1
+      - etcd2
+      - etcd3
     networks:
       - devpops2
 
   patroni-2:
+    container_name: patroni-2
     build: .
+    hostname: patroni-2
     entrypoint: [/bin/sh, /entrypoint.sh]
-    restart: unless-stopped
     volumes:
       - ./patroni.yml:/patroni.yml:ro
       - ./entrypoint.sh:/entrypoint.sh:ro
       - test-data-2:/var/lib/postgresql/patroni/main
-    environment:
-      PATRONI_API_CONNECT_PORT: 8008
-      REPLICATION_NAME: replicator
-      REPLICATION_PASS: replpass
-      SU_NAME: postgres
-      SU_PASS: supass
-      POSTGRES_APP_ROLE_PASS: appass
+    environment: *patroni-env
     depends_on:
-      - etcd
+      - etcd1
+      - etcd2
+      - etcd3
     networks:
       - devpops2
 
   patroni-3:
+    container_name: patroni-3
     build: .
+    hostname: patroni-3
     entrypoint: [/bin/sh, /entrypoint.sh]
-    restart: unless-stopped
     volumes:
       - ./patroni.yml:/patroni.yml:ro
       - ./entrypoint.sh:/entrypoint.sh:ro
       - test-data-3:/var/lib/postgresql/patroni/main
-    environment:
-      PATRONI_API_CONNECT_PORT: 8008
-      REPLICATION_NAME: replicator
-      REPLICATION_PASS: replpass
-      SU_NAME: postgres
-      SU_PASS: supass
-      POSTGRES_APP_ROLE_PASS: appass
+    environment: *patroni-env
     depends_on:
-      - etcd
+      - etcd1
+      - etcd2
+      - etcd3
     networks:
       - devpops2
 
@@ -124,31 +132,3 @@ volumes:
   test-data-1:
   test-data-2:
   test-data-3:
-
-# dos2unix ./scripts/init_slave.sh
-
-# /root/.pgpass
-# hostname:port:database:username:password
-# master:5432:replication:replicator:123
-# chmod 0600 ~/.pgpass
-# passfile=''/root/.pgpass''
-
-# pg_stat_replication - отображает каждую активную (подключённую) реплику, которая обслуживается своим процессом walsender.
-# psql -U postgres -c "SELECT pg_reload_conf();"
-
-# host    replication     replicator      0.0.0.0/0               md5
-# pg_basebackup -h master -p 5432 -U replicator -D /data/ -Fp -Xs -R
-# docker exec -it postgres-1 bash
-# # create a new user
-# createuser -U postgresadmin -P -c 5 --replication replicationUser
-# exit
-
-
-# -e POSTGRES_USER=postgresadmin `
-# -e POSTGRES_PASSWORD=admin123 `
-# -e POSTGRES_DB=postgresdb `
-# -e PGDATA="/data" `
-# -v ${PWD}/pgdata:/data `
-# -v ${PWD}/config:/config `
-# -p 5000:5432 `
-# postgres:15.0 -c 'config_file=/config/postgresql.conf'
