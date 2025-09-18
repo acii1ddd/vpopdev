@@ -137,6 +137,32 @@ services:
     networks:
       - devpops2
 
+  prometheus:
+    image: prom/prometheus:latest
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml:ro
+    ports:
+      - "9090:9090"
+    networks:
+      - devpops2
+  grafana:
+    image: grafana/grafana:latest
+    ports:
+      - "3000:3000"
+    networks:
+      - devpops2
+
+  haproxy-exporter:
+    image: prom/haproxy-exporter
+    environment:
+      HAPROXY_URL: "http://haproxy:8080/;csv"
+    depends_on:
+      - haproxy
+    networks:
+      - devpops2
+    ports:
+      - "9101:9101"
+      
 networks:
   devpops2:
     driver: bridge
