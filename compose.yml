@@ -47,7 +47,7 @@ networks:
   devpops2:
     driver: bridge
 
-# dos2unix ./scripts/init_slave.sh
+# dos2unix ./scripts/init_slave.sh))
 
 # /root/.pgpass
 # hostname:port:database:username:password
