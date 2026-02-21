@@ -19,8 +19,11 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="CQRS\" />
       <Folder Include="Endpoints\" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\ToDO.Shared\ToDO.Shared.csproj" />
     </ItemGroup>
 
 </Project>

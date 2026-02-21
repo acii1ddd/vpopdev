@@ -6,6 +6,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{95C7C7A5-12B
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{C71655F4-9239-4139-A876-476C11DECC05}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ToDO.Shared", "src\ToDO.Shared\ToDO.Shared.csproj", "{DDF9F52E-094E-404B-9577-5A0CECBCFB30}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -16,8 +18,13 @@ Global
 		{0617CB5E-190C-42C5-B496-B2E85CFC362D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0617CB5E-190C-42C5-B496-B2E85CFC362D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0617CB5E-190C-42C5-B496-B2E85CFC362D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DDF9F52E-094E-404B-9577-5A0CECBCFB30}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DDF9F52E-094E-404B-9577-5A0CECBCFB30}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DDF9F52E-094E-404B-9577-5A0CECBCFB30}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DDF9F52E-094E-404B-9577-5A0CECBCFB30}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{0617CB5E-190C-42C5-B496-B2E85CFC362D} = {95C7C7A5-12B4-4DCE-9DD2-4ACA60034414}
+		{DDF9F52E-094E-404B-9577-5A0CECBCFB30} = {95C7C7A5-12B4-4DCE-9DD2-4ACA60034414}
 	EndGlobalSection
 EndGlobal
