@@ -28,13 +28,11 @@ public class ToDoItemConfiguration : IEntityTypeConfiguration<ToDoItem>
             .HasDefaultValue(false);
 
         builder.Property(t => t.CreatedAt)
-            .IsRequired()
-            .HasDefaultValue(DateTime.UtcNow);
-        
+            .IsRequired();
+
         builder.Property(t => t.UpdatedAt)
-            .IsRequired()
-            .HasDefaultValue(DateTime.UtcNow);
-        
+            .IsRequired();
+
         builder.Property(t => t.Priority)
             .HasDefaultValue(Priority.Medium);
         
@@ -50,8 +48,8 @@ public class ToDoItemConfiguration : IEntityTypeConfiguration<ToDoItem>
                 Title = "Купить продукты",
                 Description = "Молоко, хлеб, яйца",
                 IsCompleted = false,
-                CreatedAt = DateTime.UtcNow,
-                UpdatedAt = DateTime.UtcNow,
+                CreatedAt = new DateTime(2025, 1, 1, 0, 0, 0, DateTimeKind.Utc),
+                UpdatedAt = new DateTime(2025, 1, 1, 0, 0, 0, DateTimeKind.Utc),
                 Priority = Priority.Medium
             },
             new ToDoItem
@@ -61,8 +59,8 @@ public class ToDoItemConfiguration : IEntityTypeConfiguration<ToDoItem>
                 Title = "Завершить отчет",
                 Description = "Отчет за квартал",
                 IsCompleted = true,
-                CreatedAt = DateTime.UtcNow,
-                UpdatedAt = DateTime.UtcNow,
+                CreatedAt = new DateTime(2025, 1, 1, 0, 0, 0, DateTimeKind.Utc),
+                UpdatedAt = new DateTime(2025, 1, 1, 0, 0, 0, DateTimeKind.Utc),
                 Priority = Priority.High
             },
             new ToDoItem
@@ -72,8 +70,8 @@ public class ToDoItemConfiguration : IEntityTypeConfiguration<ToDoItem>
                 Title = "Сходить в спортзал",
                 Description = "Тренировка ног",
                 IsCompleted = false,
-                CreatedAt = DateTime.UtcNow,
-                UpdatedAt = DateTime.UtcNow,
+                CreatedAt = new DateTime(2025, 1, 1, 0, 0, 0, DateTimeKind.Utc),
+                UpdatedAt = new DateTime(2025, 1, 1, 0, 0, 0, DateTimeKind.Utc),
                 Priority = Priority.Low
             },
             new ToDoItem
@@ -83,8 +81,8 @@ public class ToDoItemConfiguration : IEntityTypeConfiguration<ToDoItem>
                 Title = "Прочитать книгу",
                 Description = "Главы 1-5",
                 IsCompleted = false,
-                CreatedAt = DateTime.UtcNow,
-                UpdatedAt = DateTime.UtcNow,
+                CreatedAt = new DateTime(2025, 1, 1, 0, 0, 0, DateTimeKind.Utc),
+                UpdatedAt = new DateTime(2025, 1, 1, 0, 0, 0, DateTimeKind.Utc),
                 Priority = Priority.Medium
             },
             new ToDoItem
@@ -94,8 +92,8 @@ public class ToDoItemConfiguration : IEntityTypeConfiguration<ToDoItem>
                 Title = "Позвонить клиенту",
                 Description = "Обсудить детали проекта",
                 IsCompleted = true,
-                CreatedAt = DateTime.UtcNow,
-                UpdatedAt = DateTime.UtcNow,
+                CreatedAt = new DateTime(2025, 1, 1, 0, 0, 0, DateTimeKind.Utc),
+                UpdatedAt = new DateTime(2025, 1, 1, 0, 0, 0, DateTimeKind.Utc),
                 Priority = Priority.High
             }
         ]);

@@ -3,12 +3,12 @@
 # Создать новую миграцию
 # Usage: make migration-add name=MigrationName
 migration-add:
-	dotnet ef migrations add $(name) -s ./ToDo.API -p ./ToDo.API/ --context ToDo.API.Data.AppDbContext --output-dir Data/Migrations
+	dotnet ef migrations add $(name) -s ./src/ToDo.API -p ./src/ToDo.API/ --context ToDo.API.Data.AppDbContext --output-dir Data/Migrations
 
 # Применить миграции к БД
 migration-update:
-	dotnet ef database update -s ./ToDo.API -p ./ToDo.API/ --context ToDo.API.Data.AppDbContext
+	dotnet ef database update -s ./src/ToDo.API -p ./src/ToDo.API/ --context ./src/ToDo.API.Data.AppDbContext
 
 # Удалить последнюю миграцию
 migration-remove:
-	dotnet ef migrations remove -s ./ToDo.API -p ./ToDo.API/ --context ToDo.API.Data.AppDbContext
+	dotnet ef migrations remove -s ./src/ToDo.API -p ./src/ToDo.API/ --context ToDo.API.Data.AppDbContext

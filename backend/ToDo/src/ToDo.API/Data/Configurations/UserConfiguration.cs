@@ -41,7 +41,7 @@ public class UserConfiguration : IEntityTypeConfiguration<User>
                 Name = "Alice Johnson",
                 Email = "alice@example.com",
                 PasswordHash = "AQAAAAIAAYagAAAAEH...",
-                CreatedAt = DateOnly.FromDateTime(DateTime.UtcNow)
+                CreatedAt = new DateOnly(2025, 1, 1)
             },
             new()
             {
@@ -49,7 +49,7 @@ public class UserConfiguration : IEntityTypeConfiguration<User>
                 Name = "Bob Smith",
                 Email = "bob@example.com",
                 PasswordHash = "AQAAAAIAAYagAAAAEH...",
-                CreatedAt = DateOnly.FromDateTime(DateTime.UtcNow)
+                CreatedAt = new DateOnly(2025, 1, 1)
             },
             new()
             {
@@ -57,7 +57,7 @@ public class UserConfiguration : IEntityTypeConfiguration<User>
                 Name = "Charlie Brown",
                 Email = "charlie@example.com",
                 PasswordHash = "AQAAAAIAAYagAAAAEH...",
-                CreatedAt = DateOnly.FromDateTime(DateTime.UtcNow)
+                CreatedAt = new DateOnly(2025, 1, 1)
             },
             new()
             {
@@ -65,7 +65,7 @@ public class UserConfiguration : IEntityTypeConfiguration<User>
                 Name = "Diana Prince",
                 Email = "diana@example.com",
                 PasswordHash = "AQAAAAIAAYagAAAAEH...",
-                CreatedAt = DateOnly.FromDateTime(DateTime.UtcNow)
+                CreatedAt = new DateOnly(2025, 1, 1)
             },
             new()
             {
@@ -73,7 +73,7 @@ public class UserConfiguration : IEntityTypeConfiguration<User>
                 Name = "Evan Wright",
                 Email = "evan@example.com",
                 PasswordHash = "AQAAAAIAAYagAAAAEH...",
-                CreatedAt = DateOnly.FromDateTime(DateTime.UtcNow)
+                CreatedAt = new DateOnly(2025, 1, 1)
             }
         });
     }

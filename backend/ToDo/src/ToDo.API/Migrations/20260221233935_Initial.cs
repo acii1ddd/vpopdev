@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
 
-namespace ToDo.API.Data.Migrations
+namespace ToDo.API.Migrations
 {
     /// <inheritdoc />
     public partial class Initial : Migration
@@ -37,8 +37,8 @@ namespace ToDo.API.Data.Migrations
                     Title = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: false),
                     Description = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: false),
                     IsCompleted = table.Column<bool>(type: "boolean", nullable: false, defaultValue: false),
-                    CreatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false, defaultValue: new DateTime(2026, 2, 21, 21, 16, 55, 865, DateTimeKind.Utc).AddTicks(2921)),
-                    UpdatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false, defaultValue: new DateTime(2026, 2, 21, 21, 16, 55, 865, DateTimeKind.Utc).AddTicks(4364)),
+                    CreatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    UpdatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     Priority = table.Column<int>(type: "integer", nullable: false, defaultValue: 1)
                 },
                 constraints: table =>
@@ -57,37 +57,37 @@ namespace ToDo.API.Data.Migrations
                 columns: new[] { "Id", "CreatedAt", "Email", "Name", "PasswordHash" },
                 values: new object[,]
                 {
-                    { new Guid("11111111-1111-1111-1111-111111111111"), new DateOnly(2026, 2, 21), "alice@example.com", "Alice Johnson", "AQAAAAIAAYagAAAAEH..." },
-                    { new Guid("22222222-2222-2222-2222-222222222222"), new DateOnly(2026, 2, 21), "bob@example.com", "Bob Smith", "AQAAAAIAAYagAAAAEH..." },
-                    { new Guid("33333333-3333-3333-3333-333333333333"), new DateOnly(2026, 2, 21), "charlie@example.com", "Charlie Brown", "AQAAAAIAAYagAAAAEH..." },
-                    { new Guid("44444444-4444-4444-4444-444444444444"), new DateOnly(2026, 2, 21), "diana@example.com", "Diana Prince", "AQAAAAIAAYagAAAAEH..." },
-                    { new Guid("55555555-5555-5555-5555-555555555555"), new DateOnly(2026, 2, 21), "evan@example.com", "Evan Wright", "AQAAAAIAAYagAAAAEH..." }
+                    { new Guid("11111111-1111-1111-1111-111111111111"), new DateOnly(2025, 1, 1), "alice@example.com", "Alice Johnson", "AQAAAAIAAYagAAAAEH..." },
+                    { new Guid("22222222-2222-2222-2222-222222222222"), new DateOnly(2025, 1, 1), "bob@example.com", "Bob Smith", "AQAAAAIAAYagAAAAEH..." },
+                    { new Guid("33333333-3333-3333-3333-333333333333"), new DateOnly(2025, 1, 1), "charlie@example.com", "Charlie Brown", "AQAAAAIAAYagAAAAEH..." },
+                    { new Guid("44444444-4444-4444-4444-444444444444"), new DateOnly(2025, 1, 1), "diana@example.com", "Diana Prince", "AQAAAAIAAYagAAAAEH..." },
+                    { new Guid("55555555-5555-5555-5555-555555555555"), new DateOnly(2025, 1, 1), "evan@example.com", "Evan Wright", "AQAAAAIAAYagAAAAEH..." }
                 });
 
             migrationBuilder.InsertData(
                 table: "toDoItems",
                 columns: new[] { "Id", "CreatedAt", "Description", "Priority", "Title", "UpdatedAt", "UserId" },
-                values: new object[] { new Guid("aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa"), new DateTime(2026, 2, 21, 21, 16, 55, 867, DateTimeKind.Utc).AddTicks(4287), "Молоко, хлеб, яйца", 1, "Купить продукты", new DateTime(2026, 2, 21, 21, 16, 55, 867, DateTimeKind.Utc).AddTicks(4489), new Guid("11111111-1111-1111-1111-111111111111") });
+                values: new object[] { new Guid("aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa"), new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc), "Молоко, хлеб, яйца", 1, "Купить продукты", new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc), new Guid("11111111-1111-1111-1111-111111111111") });
 
             migrationBuilder.InsertData(
                 table: "toDoItems",
                 columns: new[] { "Id", "CreatedAt", "Description", "IsCompleted", "Priority", "Title", "UpdatedAt", "UserId" },
-                values: new object[] { new Guid("bbbbbbbb-bbbb-bbbb-bbbb-bbbbbbbbbbbb"), new DateTime(2026, 2, 21, 21, 16, 55, 867, DateTimeKind.Utc).AddTicks(4850), "Отчет за квартал", true, 2, "Завершить отчет", new DateTime(2026, 2, 21, 21, 16, 55, 867, DateTimeKind.Utc).AddTicks(4851), new Guid("11111111-1111-1111-1111-111111111111") });
+                values: new object[] { new Guid("bbbbbbbb-bbbb-bbbb-bbbb-bbbbbbbbbbbb"), new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc), "Отчет за квартал", true, 2, "Завершить отчет", new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc), new Guid("11111111-1111-1111-1111-111111111111") });
 
             migrationBuilder.InsertData(
                 table: "toDoItems",
                 columns: new[] { "Id", "CreatedAt", "Description", "Title", "UpdatedAt", "UserId" },
-                values: new object[] { new Guid("cccccccc-cccc-cccc-cccc-cccccccccccc"), new DateTime(2026, 2, 21, 21, 16, 55, 867, DateTimeKind.Utc).AddTicks(4853), "Тренировка ног", "Сходить в спортзал", new DateTime(2026, 2, 21, 21, 16, 55, 867, DateTimeKind.Utc).AddTicks(4854), new Guid("22222222-2222-2222-2222-222222222222") });
+                values: new object[] { new Guid("cccccccc-cccc-cccc-cccc-cccccccccccc"), new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc), "Тренировка ног", "Сходить в спортзал", new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc), new Guid("22222222-2222-2222-2222-222222222222") });
 
             migrationBuilder.InsertData(
                 table: "toDoItems",
                 columns: new[] { "Id", "CreatedAt", "Description", "Priority", "Title", "UpdatedAt", "UserId" },
-                values: new object[] { new Guid("dddddddd-dddd-dddd-dddd-dddddddddddd"), new DateTime(2026, 2, 21, 21, 16, 55, 867, DateTimeKind.Utc).AddTicks(4857), "Главы 1-5", 1, "Прочитать книгу", new DateTime(2026, 2, 21, 21, 16, 55, 867, DateTimeKind.Utc).AddTicks(4857), new Guid("33333333-3333-3333-3333-333333333333") });
+                values: new object[] { new Guid("dddddddd-dddd-dddd-dddd-dddddddddddd"), new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc), "Главы 1-5", 1, "Прочитать книгу", new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc), new Guid("33333333-3333-3333-3333-333333333333") });
 
             migrationBuilder.InsertData(
                 table: "toDoItems",
                 columns: new[] { "Id", "CreatedAt", "Description", "IsCompleted", "Priority", "Title", "UpdatedAt", "UserId" },
-                values: new object[] { new Guid("eeeeeeee-eeee-eeee-eeee-eeeeeeeeeeee"), new DateTime(2026, 2, 21, 21, 16, 55, 867, DateTimeKind.Utc).AddTicks(4859), "Обсудить детали проекта", true, 2, "Позвонить клиенту", new DateTime(2026, 2, 21, 21, 16, 55, 867, DateTimeKind.Utc).AddTicks(4859), new Guid("44444444-4444-4444-4444-444444444444") });
+                values: new object[] { new Guid("eeeeeeee-eeee-eeee-eeee-eeeeeeeeeeee"), new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc), "Обсудить детали проекта", true, 2, "Позвонить клиенту", new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc), new Guid("44444444-4444-4444-4444-444444444444") });
 
             migrationBuilder.CreateIndex(
                 name: "IX_toDoItems_UserId",

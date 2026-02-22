@@ -9,8 +9,7 @@ public static class DatabaseExtensions
     {
         using var scope = app.Services.CreateScope();
         
-        var context = scope.ServiceProvider.GetRequiredService<AppDbContext>()
-            ?? throw new InvalidOperationException("AppDbContext not found in service provider.");
+        var context = scope.ServiceProvider.GetRequiredService<AppDbContext>();
         
         await context.Database.MigrateAsync();
     }

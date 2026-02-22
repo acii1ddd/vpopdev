@@ -1,10 +1,15 @@
 using ToDo.API.ConfigurationExtensions;
+using ToDo.API.EndpointSettings;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services
+    .AddEndpoints(typeof(Program).Assembly)
     .AddRepositories()
-    .AddDbContexts(builder.Configuration);
+    .AddDbContexts(builder.Configuration)
+    .AddApiVersionControl()
+    .AddMediatr()
+    .AddOpenApi();
 
 var app = builder.Build();
 

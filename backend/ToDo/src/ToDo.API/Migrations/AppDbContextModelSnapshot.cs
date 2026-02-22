@@ -8,7 +8,7 @@ using ToDo.API.Data;
 
 #nullable disable
 
-namespace ToDo.API.Data.Migrations
+namespace ToDo.API.Migrations
 {
     [DbContext(typeof(AppDbContext))]
     partial class AppDbContextModelSnapshot : ModelSnapshot
@@ -29,9 +29,7 @@ namespace ToDo.API.Data.Migrations
                         .HasColumnType("uuid");
 
                     b.Property<DateTime>("CreatedAt")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("timestamp with time zone")
-                        .HasDefaultValue(new DateTime(2026, 2, 21, 21, 16, 55, 865, DateTimeKind.Utc).AddTicks(2921));
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("Description")
                         .IsRequired()
@@ -54,9 +52,7 @@ namespace ToDo.API.Data.Migrations
                         .HasColumnType("character varying(256)");
 
                     b.Property<DateTime>("UpdatedAt")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("timestamp with time zone")
-                        .HasDefaultValue(new DateTime(2026, 2, 21, 21, 16, 55, 865, DateTimeKind.Utc).AddTicks(4364));
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<Guid>("UserId")
                         .HasColumnType("uuid");
@@ -71,56 +67,56 @@ namespace ToDo.API.Data.Migrations
                         new
                         {
                             Id = new Guid("aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa"),
-                            CreatedAt = new DateTime(2026, 2, 21, 21, 16, 55, 867, DateTimeKind.Utc).AddTicks(4287),
+                            CreatedAt = new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             Description = "Молоко, хлеб, яйца",
                             IsCompleted = false,
                             Priority = 1,
                             Title = "Купить продукты",
-                            UpdatedAt = new DateTime(2026, 2, 21, 21, 16, 55, 867, DateTimeKind.Utc).AddTicks(4489),
+                            UpdatedAt = new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             UserId = new Guid("11111111-1111-1111-1111-111111111111")
                         },
                         new
                         {
                             Id = new Guid("bbbbbbbb-bbbb-bbbb-bbbb-bbbbbbbbbbbb"),
-                            CreatedAt = new DateTime(2026, 2, 21, 21, 16, 55, 867, DateTimeKind.Utc).AddTicks(4850),
+                            CreatedAt = new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             Description = "Отчет за квартал",
                             IsCompleted = true,
                             Priority = 2,
                             Title = "Завершить отчет",
-                            UpdatedAt = new DateTime(2026, 2, 21, 21, 16, 55, 867, DateTimeKind.Utc).AddTicks(4851),
+                            UpdatedAt = new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             UserId = new Guid("11111111-1111-1111-1111-111111111111")
                         },
                         new
                         {
                             Id = new Guid("cccccccc-cccc-cccc-cccc-cccccccccccc"),
-                            CreatedAt = new DateTime(2026, 2, 21, 21, 16, 55, 867, DateTimeKind.Utc).AddTicks(4853),
+                            CreatedAt = new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             Description = "Тренировка ног",
                             IsCompleted = false,
                             Priority = 0,
                             Title = "Сходить в спортзал",
-                            UpdatedAt = new DateTime(2026, 2, 21, 21, 16, 55, 867, DateTimeKind.Utc).AddTicks(4854),
+                            UpdatedAt = new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             UserId = new Guid("22222222-2222-2222-2222-222222222222")
                         },
                         new
                         {
                             Id = new Guid("dddddddd-dddd-dddd-dddd-dddddddddddd"),
-                            CreatedAt = new DateTime(2026, 2, 21, 21, 16, 55, 867, DateTimeKind.Utc).AddTicks(4857),
+                            CreatedAt = new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             Description = "Главы 1-5",
                             IsCompleted = false,
                             Priority = 1,
                             Title = "Прочитать книгу",
-                            UpdatedAt = new DateTime(2026, 2, 21, 21, 16, 55, 867, DateTimeKind.Utc).AddTicks(4857),
+                            UpdatedAt = new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             UserId = new Guid("33333333-3333-3333-3333-333333333333")
                         },
                         new
                         {
                             Id = new Guid("eeeeeeee-eeee-eeee-eeee-eeeeeeeeeeee"),
-                            CreatedAt = new DateTime(2026, 2, 21, 21, 16, 55, 867, DateTimeKind.Utc).AddTicks(4859),
+                            CreatedAt = new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             Description = "Обсудить детали проекта",
                             IsCompleted = true,
                             Priority = 2,
                             Title = "Позвонить клиенту",
-                            UpdatedAt = new DateTime(2026, 2, 21, 21, 16, 55, 867, DateTimeKind.Utc).AddTicks(4859),
+                            UpdatedAt = new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             UserId = new Guid("44444444-4444-4444-4444-444444444444")
                         });
                 });
@@ -134,7 +130,7 @@ namespace ToDo.API.Data.Migrations
                     b.Property<DateOnly>("CreatedAt")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("date")
-                        .HasDefaultValue(new DateOnly(2026, 2, 21));
+                        .HasDefaultValue(new DateOnly(2026, 2, 22));
 
                     b.Property<string>("Email")
                         .IsRequired()
@@ -159,7 +155,7 @@ namespace ToDo.API.Data.Migrations
                         new
                         {
                             Id = new Guid("11111111-1111-1111-1111-111111111111"),
-                            CreatedAt = new DateOnly(2026, 2, 21),
+                            CreatedAt = new DateOnly(2025, 1, 1),
                             Email = "alice@example.com",
                             Name = "Alice Johnson",
                             PasswordHash = "AQAAAAIAAYagAAAAEH..."
@@ -167,7 +163,7 @@ namespace ToDo.API.Data.Migrations
                         new
                         {
                             Id = new Guid("22222222-2222-2222-2222-222222222222"),
-                            CreatedAt = new DateOnly(2026, 2, 21),
+                            CreatedAt = new DateOnly(2025, 1, 1),
                             Email = "bob@example.com",
                             Name = "Bob Smith",
                             PasswordHash = "AQAAAAIAAYagAAAAEH..."
@@ -175,7 +171,7 @@ namespace ToDo.API.Data.Migrations
                         new
                         {
                             Id = new Guid("33333333-3333-3333-3333-333333333333"),
-                            CreatedAt = new DateOnly(2026, 2, 21),
+                            CreatedAt = new DateOnly(2025, 1, 1),
                             Email = "charlie@example.com",
                             Name = "Charlie Brown",
                             PasswordHash = "AQAAAAIAAYagAAAAEH..."
@@ -183,7 +179,7 @@ namespace ToDo.API.Data.Migrations
                         new
                         {
                             Id = new Guid("44444444-4444-4444-4444-444444444444"),
-                            CreatedAt = new DateOnly(2026, 2, 21),
+                            CreatedAt = new DateOnly(2025, 1, 1),
                             Email = "diana@example.com",
                             Name = "Diana Prince",
                             PasswordHash = "AQAAAAIAAYagAAAAEH..."
@@ -191,7 +187,7 @@ namespace ToDo.API.Data.Migrations
                         new
                         {
                             Id = new Guid("55555555-5555-5555-5555-555555555555"),
-                            CreatedAt = new DateOnly(2026, 2, 21),
+                            CreatedAt = new DateOnly(2025, 1, 1),
                             Email = "evan@example.com",
                             Name = "Evan Wright",
                             PasswordHash = "AQAAAAIAAYagAAAAEH..."

@@ -14,7 +14,7 @@ public static class WebAppExtensions
             app.MapScalarApiReference(options =>
             {
                 options.AddPreferredSecuritySchemes("Bearer");
-                
+
                 options.AddHttpAuthentication("Bearer", auth =>
                 {
                     auth.Token = "eyJhbGciOiJ...";
@@ -31,7 +31,7 @@ public static class WebAppExtensions
         //app.UseAuthentication();
         //app.UseAuthorization();
 
-        var mapGroup = app.MapGroup("/api");
+        var mapGroup = app.MapGroup("/api/v{version:apiVersion}");
         app.MapEndpoints(mapGroup);
 
         await app.InitDbAsync();
