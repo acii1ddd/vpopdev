@@ -19,7 +19,7 @@ public class CustomExceptionHandler(ILogger<CustomExceptionHandler> logger) : IE
             OperationCanceledException operationCanceledEx => (HttpStatusCode.BadRequest, operationCanceledEx.Message),
             //BadRequestException badRequestEx => (HttpStatusCode.BadRequest, badRequestEx.Message),
             //InternalServerException internalServerEx => (HttpStatusCode.InternalServerError, internalServerEx.Message),
-            //NotFoundException notFoundEx => (HttpStatusCode.NotFound, notFoundEx.Message),
+            NotFoundException notFoundEx => (HttpStatusCode.NotFound, notFoundEx.Message),
             ValidationException validationEx => (HttpStatusCode.BadRequest, validationEx.Message),
             _ => (HttpStatusCode.InternalServerError, e.Message)
         };
@@ -46,3 +46,5 @@ public class CustomExceptionHandler(ILogger<CustomExceptionHandler> logger) : IE
         return true;
     }
 }
+
+public class NotFoundException(string message) : Exception(message);

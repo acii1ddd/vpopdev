@@ -5,10 +5,10 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
 
-namespace ToDo.API.Migrations
+namespace ToDo.API.Data.Migrations
 {
     /// <inheritdoc />
-    public partial class Initial : Migration
+    public partial class Init : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -21,7 +21,7 @@ namespace ToDo.API.Migrations
                     Name = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: false),
                     Email = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: false),
                     PasswordHash = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: false),
-                    CreatedAt = table.Column<DateOnly>(type: "date", nullable: false, defaultValue: new DateOnly(2026, 2, 21))
+                    CreatedAt = table.Column<DateOnly>(type: "date", nullable: false, defaultValue: new DateOnly(2026, 2, 23))
                 },
                 constraints: table =>
                 {

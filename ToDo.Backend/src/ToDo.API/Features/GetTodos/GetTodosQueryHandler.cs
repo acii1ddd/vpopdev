@@ -6,7 +6,7 @@ namespace ToDo.API.Features.GetTodos;
 
 
 public sealed record GetTodosQuery : IQuery<GetTodosResult>;
-public record GetTodosResult(IEnumerable<ToDoItem> Todos);
+public sealed record GetTodosResult(IEnumerable<ToDoItem> Todos);
 
 public sealed record GetTodosQueryHandler(IToDoItemRepository ToDoItemRepository)
     : IQueryHandler<GetTodosQuery, GetTodosResult>

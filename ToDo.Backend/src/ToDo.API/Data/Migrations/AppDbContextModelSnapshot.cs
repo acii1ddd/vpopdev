@@ -2,21 +2,18 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
-using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using ToDo.API.Data;
 
 #nullable disable
 
-namespace ToDo.API.Migrations
+namespace ToDo.API.Data.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20260222000424_FixPriorityDefault")]
-    partial class FixPriorityDefault
+    partial class AppDbContextModelSnapshot : ModelSnapshot
     {
-        /// <inheritdoc />
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -133,7 +130,7 @@ namespace ToDo.API.Migrations
                     b.Property<DateOnly>("CreatedAt")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("date")
-                        .HasDefaultValue(new DateOnly(2026, 2, 22));
+                        .HasDefaultValue(new DateOnly(2026, 2, 23));
 
                     b.Property<string>("Email")
                         .IsRequired()
