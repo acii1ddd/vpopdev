@@ -26,4 +26,11 @@ public class ToDoItemRepository([FromKeyedServices("Read")]AppDbContext readDbCo
         
         await writeDbContext.SaveChangesAsync(ct);
     }
+
+    public async Task UpdateAsync(ToDoItem todo, CancellationToken ct)
+    {
+        writeDbContext.Update(todo);
+        
+        await writeDbContext.SaveChangesAsync(ct);
+    }
 }
