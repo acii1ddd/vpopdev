@@ -9,6 +9,7 @@ builder.Services
     .AddDbContexts(builder.Configuration)
     .AddApiVersionControl()
     .AddMediatr()
+    .AddJwtAuth(builder.Configuration)
     .AddOpenApi();
 
 var app = builder.Build();

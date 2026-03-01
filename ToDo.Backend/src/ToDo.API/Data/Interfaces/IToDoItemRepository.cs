@@ -8,4 +8,5 @@ public interface IToDoItemRepository
     public Task<ToDoItem?> GetByIdAsync(Guid id, CancellationToken ct);
     public Task DeleteAsync(ToDoItem todoResult, CancellationToken ct);
     public Task UpdateAsync(ToDoItem todo, CancellationToken ct);
+    public Task AddAsync(ToDoItem todo, CancellationToken ct);
 }

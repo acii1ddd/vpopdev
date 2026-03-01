@@ -4,6 +4,7 @@ using ToDo.API.Data;
 using ToDo.API.Data.Interfaces;
 using ToDo.API.Data.Repositories;
 using ToDo.API.Features.GetTodos;
+using ToDo.API.Services;
 
 namespace ToDo.API.ConfigurationExtensions;
 
@@ -15,6 +16,7 @@ public static class DependencyInjection
         {
             services.AddScoped<IToDoItemRepository, ToDoItemRepository>();
             services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<IJwtTokenService, JwtTokenService>();
         
             return services;
         }

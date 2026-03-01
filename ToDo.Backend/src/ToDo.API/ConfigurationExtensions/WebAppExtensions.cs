@@ -28,8 +28,8 @@ public static class WebAppExtensions
 
         app.UseExceptionHandler(opt => { });
 
-        //app.UseAuthentication();
-        //app.UseAuthorization();
+        app.UseAuthentication();
+        app.UseAuthorization();
 
         var mapGroup = app.MapGroup("/api/v{version:apiVersion}");
         app.MapEndpoints(mapGroup);
