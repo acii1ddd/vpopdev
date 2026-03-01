@@ -1,10 +1,12 @@
 using ToDo.API.ConfigurationExtensions;
 using ToDo.API.EndpointSettings;
+using ToDO.Shared.Exceptions;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services
     .AddEndpoints(typeof(Program).Assembly)
+    .AddExceptionHandler<CustomExceptionHandler>()
     .AddRepositories()
     .AddDbContexts(builder.Configuration)
     .AddApiVersionControl()
