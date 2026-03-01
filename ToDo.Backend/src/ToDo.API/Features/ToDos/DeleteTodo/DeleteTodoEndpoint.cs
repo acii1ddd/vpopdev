@@ -2,8 +2,9 @@ using Asp.Versioning;
 using MediatR;
 using ToDo.API.EndpointSettings;
 
-namespace ToDo.API.Features.DeleteTodo;
+namespace ToDo.API.Features.ToDos.DeleteTodo;
 
+// todo test with 11111111-1111-1111-1111-111111111111 parameter and fix handling exeption
 public class DeleteTodoEndpoint : IEndpoint
 {
     public ApiVersion ApiVersion => new(1, 0);

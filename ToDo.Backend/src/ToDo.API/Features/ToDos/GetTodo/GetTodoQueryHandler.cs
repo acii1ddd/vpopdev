@@ -1,9 +1,10 @@
 using ToDo.API.Data.Interfaces;
 using ToDo.API.Data.Models.Entities;
 using ToDO.Shared.CQRS;
+using ToDo.Shared.Exceptions;
 using ToDO.Shared.Exceptions;
 
-namespace ToDo.API.Features.GetTodo;
+namespace ToDo.API.Features.ToDos.GetTodo;
 
 public sealed record GetTodoQuery(Guid Id) : IQuery<GetTodoResult>;
 

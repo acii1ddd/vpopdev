@@ -33,23 +33,19 @@ namespace ToDo.API.Data.Migrations
 
                     b.Property<string>("Description")
                         .IsRequired()
-                        .HasMaxLength(256)
-                        .HasColumnType("character varying(256)");
+                        .HasMaxLength(255)
+                        .HasColumnType("character varying(255)");
 
                     b.Property<bool>("IsCompleted")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("boolean")
-                        .HasDefaultValue(false);
+                        .HasColumnType("boolean");
 
                     b.Property<int>("Priority")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer")
-                        .HasDefaultValue(1);
+                        .HasColumnType("integer");
 
                     b.Property<string>("Title")
                         .IsRequired()
-                        .HasMaxLength(256)
-                        .HasColumnType("character varying(256)");
+                        .HasMaxLength(255)
+                        .HasColumnType("character varying(255)");
 
                     b.Property<DateTime>("UpdatedAt")
                         .HasColumnType("timestamp with time zone");
@@ -127,10 +123,8 @@ namespace ToDo.API.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
-                    b.Property<DateOnly>("CreatedAt")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("date")
-                        .HasDefaultValue(new DateOnly(2026, 2, 23));
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("Email")
                         .IsRequired()
@@ -147,6 +141,11 @@ namespace ToDo.API.Data.Migrations
                         .HasMaxLength(256)
                         .HasColumnType("character varying(256)");
 
+                    b.Property<string>("Role")
+                        .IsRequired()
+                        .HasMaxLength(256)
+                        .HasColumnType("character varying(256)");
+
                     b.HasKey("Id");
 
                     b.ToTable("users", (string)null);
@@ -155,42 +154,47 @@ namespace ToDo.API.Data.Migrations
                         new
                         {
                             Id = new Guid("11111111-1111-1111-1111-111111111111"),
-                            CreatedAt = new DateOnly(2025, 1, 1),
+                            CreatedAt = new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             Email = "alice@example.com",
                             Name = "Alice Johnson",
-                            PasswordHash = "AQAAAAIAAYagAAAAEH..."
+                            PasswordHash = "$2a$11$DnMyYgwiyLwkC3iwUsXCOemxG5RlwWxNiKMLdRd75s/xVps2lA.gu",
+                            Role = "Admin"
                         },
                         new
                         {
                             Id = new Guid("22222222-2222-2222-2222-222222222222"),
-                            CreatedAt = new DateOnly(2025, 1, 1),
+                            CreatedAt = new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             Email = "bob@example.com",
                             Name = "Bob Smith",
-                            PasswordHash = "AQAAAAIAAYagAAAAEH..."
+                            PasswordHash = "$2a$11$DnMyYgwiyLwkC3iwUsXCOemxG5RlwWxNiKMLdRd75s/xVps2lA.gu",
+                            Role = "User"
                         },
                         new
                         {
                             Id = new Guid("33333333-3333-3333-3333-333333333333"),
-                            CreatedAt = new DateOnly(2025, 1, 1),
+                            CreatedAt = new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             Email = "charlie@example.com",
                             Name = "Charlie Brown",
-                            PasswordHash = "AQAAAAIAAYagAAAAEH..."
+                            PasswordHash = "$2a$11$DnMyYgwiyLwkC3iwUsXCOemxG5RlwWxNiKMLdRd75s/xVps2lA.gu",
+                            Role = "User"
                         },
                         new
                         {
                             Id = new Guid("44444444-4444-4444-4444-444444444444"),
-                            CreatedAt = new DateOnly(2025, 1, 1),
+                            CreatedAt = new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             Email = "diana@example.com",
                             Name = "Diana Prince",
-                            PasswordHash = "AQAAAAIAAYagAAAAEH..."
+                            PasswordHash = "$2a$11$DnMyYgwiyLwkC3iwUsXCOemxG5RlwWxNiKMLdRd75s/xVps2lA.gu",
+                            Role = "User"
                         },
                         new
                         {
                             Id = new Guid("55555555-5555-5555-5555-555555555555"),
-                            CreatedAt = new DateOnly(2025, 1, 1),
+                            CreatedAt = new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             Email = "evan@example.com",
                             Name = "Evan Wright",
-                            PasswordHash = "AQAAAAIAAYagAAAAEH..."
+                            PasswordHash = "$2a$11$DnMyYgwiyLwkC3iwUsXCOemxG5RlwWxNiKMLdRd75s/xVps2lA.gu",
+                            Role = "User"
                         });
                 });
 

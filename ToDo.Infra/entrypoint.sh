@@ -45,6 +45,8 @@ log "PATRONI_POSTGRESQL_LISTEN set to: ${PATRONI_POSTGRESQL_LISTEN}"
 chown -R postgres:postgres /var/lib/postgresql/patroni/main
 chmod 700 /var/lib/postgresql/patroni/main
 
-echo ">>> Permissions fixed, starting Patroni"
+# Делаем post_bootstrap.sh исполняемым для пользователя postgres
+#chmod +x /var/lib/postgresql/post_bootstrap.sh
+#chown postgres:postgres /var/lib/postgresql/post_bootstrap.sh
 
 exec su -s /bin/sh postgres -c "/usr/bin/patroni /patroni.yml"

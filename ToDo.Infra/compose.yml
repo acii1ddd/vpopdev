@@ -81,6 +81,7 @@ services:
       - ./patroni.yml:/patroni.yml:ro
       - ./entrypoint.sh:/entrypoint.sh:ro
       - test-data-1:/var/lib/postgresql/patroni/main # волумом владеет root
+      - ./scripts/post_bootstrap.sh:/var/lib/postgresql/post_bootstrap.sh:ro
     environment: *patroni-env
     entrypoint: [/bin/sh, /entrypoint.sh]
     depends_on:
@@ -99,6 +100,7 @@ services:
       - ./patroni.yml:/patroni.yml:ro
       - ./entrypoint.sh:/entrypoint.sh:ro
       - test-data-2:/var/lib/postgresql/patroni/main
+      - ./scripts/post_bootstrap.sh:/var/lib/postgresql/post_bootstrap.sh:ro
     environment: *patroni-env
     depends_on:
       - etcd1
@@ -116,6 +118,7 @@ services:
       - ./patroni.yml:/patroni.yml:ro
       - ./entrypoint.sh:/entrypoint.sh:ro
       - test-data-3:/var/lib/postgresql/patroni/main
+      - ./scripts/post_bootstrap.sh:/var/lib/postgresql/post_bootstrap.sh:ro
     environment: *patroni-env
     depends_on:
       - etcd1

@@ -2,7 +2,7 @@ using Asp.Versioning;
 using MediatR;
 using ToDo.API.EndpointSettings;
 
-namespace ToDo.API.Features.GetTodo;
+namespace ToDo.API.Features.ToDos.GetTodo;
 
 public class GetTodoEndpoint : IEndpoint
 {

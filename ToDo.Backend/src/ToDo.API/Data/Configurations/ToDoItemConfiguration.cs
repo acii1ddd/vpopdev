@@ -7,6 +7,8 @@ namespace ToDo.API.Data.Configurations;
 
 public class ToDoItemConfiguration : IEntityTypeConfiguration<ToDoItem>
 {
+    private const int MaxLength = 255; 
+    
     public void Configure(EntityTypeBuilder<ToDoItem> builder)
     {
         builder.ToTable("toDoItems");
@@ -18,15 +20,15 @@ public class ToDoItemConfiguration : IEntityTypeConfiguration<ToDoItem>
         
         builder.Property(t => t.Title)
             .IsRequired()
-            .HasMaxLength(256);
+            .HasMaxLength(MaxLength);
         
         builder.Property(t => t.Description)
             .IsRequired()
-            .HasMaxLength(256);
+            .HasMaxLength(MaxLength);
 
         builder.Property(t => t.IsCompleted)
-            .HasDefaultValue(false);
-
+            .IsRequired();
+        
         builder.Property(t => t.CreatedAt)
             .IsRequired();
 
@@ -34,7 +36,7 @@ public class ToDoItemConfiguration : IEntityTypeConfiguration<ToDoItem>
             .IsRequired();
 
         builder.Property(t => t.Priority)
-            .HasDefaultValue(Priority.Medium);
+            .IsRequired();
         
         builder.HasOne(t => t.User)
             .WithMany(u => u.ToDoItems);
@@ -48,8 +50,8 @@ public class ToDoItemConfiguration : IEntityTypeConfiguration<ToDoItem>
                 Title = "Купить продукты",
                 Description = "Молоко, хлеб, яйца",
                 IsCompleted = false,
-                CreatedAt = new DateTime(2025, 1, 1, 0, 0, 0, DateTimeKind.Utc),
-                UpdatedAt = new DateTime(2025, 1, 1, 0, 0, 0, DateTimeKind.Utc),
+                CreatedAt = DateTime.SpecifyKind(new DateTime(2025, 1, 1, 0, 0, 0), DateTimeKind.Utc),
+                UpdatedAt = DateTime.SpecifyKind(new DateTime(2025, 1, 1, 0, 0, 0), DateTimeKind.Utc),
                 Priority = Priority.Medium
             },
             new ToDoItem
@@ -59,8 +61,8 @@ public class ToDoItemConfiguration : IEntityTypeConfiguration<ToDoItem>
                 Title = "Завершить отчет",
                 Description = "Отчет за квартал",
                 IsCompleted = true,
-                CreatedAt = new DateTime(2025, 1, 1, 0, 0, 0, DateTimeKind.Utc),
-                UpdatedAt = new DateTime(2025, 1, 1, 0, 0, 0, DateTimeKind.Utc),
+                CreatedAt = DateTime.SpecifyKind(new DateTime(2025, 1, 1, 0, 0, 0), DateTimeKind.Utc),
+                UpdatedAt = DateTime.SpecifyKind(new DateTime(2025, 1, 1, 0, 0, 0), DateTimeKind.Utc),
                 Priority = Priority.High
             },
             new ToDoItem
@@ -70,8 +72,8 @@ public class ToDoItemConfiguration : IEntityTypeConfiguration<ToDoItem>
                 Title = "Сходить в спортзал",
                 Description = "Тренировка ног",
                 IsCompleted = false,
-                CreatedAt = new DateTime(2025, 1, 1, 0, 0, 0, DateTimeKind.Utc),
-                UpdatedAt = new DateTime(2025, 1, 1, 0, 0, 0, DateTimeKind.Utc),
+                CreatedAt = DateTime.SpecifyKind(new DateTime(2025, 1, 1, 0, 0, 0), DateTimeKind.Utc),
+                UpdatedAt = DateTime.SpecifyKind(new DateTime(2025, 1, 1, 0, 0, 0), DateTimeKind.Utc),
                 Priority = Priority.Low
             },
             new ToDoItem
@@ -81,8 +83,8 @@ public class ToDoItemConfiguration : IEntityTypeConfiguration<ToDoItem>
                 Title = "Прочитать книгу",
                 Description = "Главы 1-5",
                 IsCompleted = false,
-                CreatedAt = new DateTime(2025, 1, 1, 0, 0, 0, DateTimeKind.Utc),
-                UpdatedAt = new DateTime(2025, 1, 1, 0, 0, 0, DateTimeKind.Utc),
+                CreatedAt = DateTime.SpecifyKind(new DateTime(2025, 1, 1, 0, 0, 0), DateTimeKind.Utc),
+                UpdatedAt = DateTime.SpecifyKind(new DateTime(2025, 1, 1, 0, 0, 0), DateTimeKind.Utc),
                 Priority = Priority.Medium
             },
             new ToDoItem
@@ -92,8 +94,8 @@ public class ToDoItemConfiguration : IEntityTypeConfiguration<ToDoItem>
                 Title = "Позвонить клиенту",
                 Description = "Обсудить детали проекта",
                 IsCompleted = true,
-                CreatedAt = new DateTime(2025, 1, 1, 0, 0, 0, DateTimeKind.Utc),
-                UpdatedAt = new DateTime(2025, 1, 1, 0, 0, 0, DateTimeKind.Utc),
+                CreatedAt = DateTime.SpecifyKind(new DateTime(2025, 1, 1, 0, 0, 0), DateTimeKind.Utc),
+                UpdatedAt = DateTime.SpecifyKind(new DateTime(2025, 1, 1, 0, 0, 0), DateTimeKind.Utc),
                 Priority = Priority.High
             }
         ]);

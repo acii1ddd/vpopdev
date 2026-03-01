@@ -10,9 +10,9 @@ public class User
     
     public string PasswordHash { get; set; } = string.Empty;
     
-    public string Role { get; set; } = "User";
-    
-    public DateOnly CreatedAt { get; set; }
+    public string Role { get; set; } = "User"; // todo enum
+
+    public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
     
     public ICollection<ToDoItem> ToDoItems { get; set; } = [];
 }

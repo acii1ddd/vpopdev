@@ -22,7 +22,12 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\ToDO.Shared\ToDO.Shared.csproj" />
+      <ProjectReference Include="..\ToDo.Shared\ToDo.Shared.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="Features\ToDos\" />
+      <Folder Include="Features\Users\Auth\GetUserById\" />
     </ItemGroup>
 
 </Project>

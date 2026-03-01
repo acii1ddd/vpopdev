@@ -3,8 +3,8 @@ using Microsoft.EntityFrameworkCore;
 using ToDo.API.Data;
 using ToDo.API.Data.Interfaces;
 using ToDo.API.Data.Repositories;
-using ToDo.API.Features.GetTodos;
-using ToDo.API.Services;
+using ToDo.API.Features.ToDos.GetTodos;
+using ToDo.API.Features.Users.Services;
 
 namespace ToDo.API.ConfigurationExtensions;
 
@@ -17,6 +17,7 @@ public static class DependencyInjection
             services.AddScoped<IToDoItemRepository, ToDoItemRepository>();
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IJwtTokenService, JwtTokenService>();
+            services.AddSingleton<IPasswordHasher, PasswordHasher>();
         
             return services;
         }

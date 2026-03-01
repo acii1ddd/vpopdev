@@ -3,11 +3,10 @@ using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using ToDo.API.Dtos.ToDo;
 using ToDo.API.EndpointSettings;
-using ToDo.API.Features.GetTodo;
 
-namespace ToDo.API.Features.PutTodo;
+namespace ToDo.API.Features.ToDos.AddTodo;
 
-public class PutTodoEndpoint : IEndpoint
+public class AddTodoEndpoint : IEndpoint
 {
     public ApiVersion ApiVersion => new(1, 0);
 
@@ -25,13 +24,18 @@ public class PutTodoEndpoint : IEndpoint
             .WithApiVersionSet(versionSet)
             .HasApiVersion(new ApiVersion(1, 0));
 
-        group.MapPut("/{id:guid}", async (ISender sender, [FromRoute] Guid id, [FromBody] PutToDoRequest request, CancellationToken ct) =>
+        group.MapPost("/", async (
+            ISender sender, 
+            [FromBody] AddToDoRequest request, 
+            CancellationToken ct) =>
         {
-            var command = new PutTodoCommand(id, request.Title, request.Description, request.IsCompleted, request.Priority);   
-            var result = await sender.Send( command, ct);
-            return Results.Ok(result);
+            var command = new AddTodoCommand(request.Title, request.Description, request.Priority);
+            
+            var result = await sender.Send(command, ct);
+            
+            return Results.Created($"/todos/{result.Item.Id}", result);
         })
-        .WithName("PutTodoV1")
+        .WithName("AddTodoV1")
         .WithOpenApi();
     }
 }

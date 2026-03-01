@@ -3,7 +3,7 @@ using ToDo.API.Data.Models.Entities;
 using ToDo.API.Data.Models.Enums;
 using ToDO.Shared.CQRS;
 
-namespace ToDo.API.Features.AddTodo;
+namespace ToDo.API.Features.ToDos.AddTodo;
 
 public sealed record AddTodoCommand(
     string Title,
@@ -11,13 +11,13 @@ public sealed record AddTodoCommand(
     Priority Priority
 ) : ICommand<AddTodoResult>;
 
-public sealed record AddTodoResult(ToDoItem Item);
+public sealed record AddTodoResult(ToDoItem Item); // todo make AddToDoResponse with real user model
 
 public sealed record AddTodoCommandHandler(IToDoItemRepository ToDoItemRepository)
     : ICommandHandler<AddTodoCommand, AddTodoResult>
 {
     // TODO: replace with real user id from auth
-    private static readonly Guid StaticUserId = Guid.Parse("00000000-0000-0000-0000-000000000001");
+    private static readonly Guid StaticUserId = Guid.Parse("11111111-1111-1111-1111-111111111111");
 
     public async Task<AddTodoResult> Handle(AddTodoCommand command, CancellationToken ct)
     {

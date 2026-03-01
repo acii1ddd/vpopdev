@@ -4,7 +4,7 @@ using System.Text;
 using Microsoft.IdentityModel.Tokens;
 using ToDo.API.Data.Models.Entities;
 
-namespace ToDo.API.Services;
+namespace ToDo.API.Features.Users.Services;
 
 public class JwtTokenService(IConfiguration configuration) : IJwtTokenService
 {

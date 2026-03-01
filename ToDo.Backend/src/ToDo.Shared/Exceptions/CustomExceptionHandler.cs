@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using ToDo.Shared.Exceptions;
 
 namespace ToDO.Shared.Exceptions;
 
@@ -46,5 +47,3 @@ public class CustomExceptionHandler(ILogger<CustomExceptionHandler> logger) : IE
         return true;
     }
 }
-
-public class NotFoundException(string message) : Exception(message);

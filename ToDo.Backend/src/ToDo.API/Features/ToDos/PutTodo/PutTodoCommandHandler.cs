@@ -2,9 +2,9 @@ using ToDo.API.Data.Interfaces;
 using ToDo.API.Data.Models.Entities;
 using ToDo.API.Data.Models.Enums;
 using ToDO.Shared.CQRS;
-using ToDO.Shared.Exceptions;
+using ToDo.Shared.Exceptions;
 
-namespace ToDo.API.Features.PutTodo;
+namespace ToDo.API.Features.ToDos.PutTodo;
 
 public sealed record PutTodoCommand(
     Guid Id,

@@ -1,15 +1,16 @@
 using ToDo.API.Data.Interfaces;
 using ToDo.API.Data.Models.Entities;
 using ToDO.Shared.CQRS;
+using ToDo.Shared.Exceptions;
 using ToDO.Shared.Exceptions;
 
-namespace ToDo.API.Features.DeleteTodo;
+namespace ToDo.API.Features.ToDos.DeleteTodo;
 
 public sealed record DeleteTodoCommand(Guid Id) : ICommand<DeleteTodoResult>;
 
 public sealed record DeleteTodoResult(ToDoItem Item);
 
-public sealed record DeleteTodoQueryHandler(IToDoItemRepository ToDoItemRepository)
+public sealed record DeleteTodoCommandHandler(IToDoItemRepository ToDoItemRepository)
     : ICommandHandler<DeleteTodoCommand, DeleteTodoResult>
 {
     public async Task<DeleteTodoResult> Handle(DeleteTodoCommand command, CancellationToken ct)
