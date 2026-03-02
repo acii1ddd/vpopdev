@@ -31,6 +31,7 @@ public class PutTodoEndpoint : IEndpoint
             return Results.Ok(result);
         })
         .WithName("PutTodoV1")
-        .WithOpenApi();
+        .WithOpenApi()
+        .RequireAuthorization("User");
     }
 }

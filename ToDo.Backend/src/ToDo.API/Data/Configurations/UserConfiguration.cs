@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using ToDo.API.Data.Models.Entities;
+using ToDo.API.Data.Models.Enums;
 
 namespace ToDo.API.Data.Configurations;
 
@@ -25,10 +26,10 @@ public class UserConfiguration : IEntityTypeConfiguration<User>
         builder.Property(u => u.PasswordHash)
             .IsRequired()
             .HasMaxLength(MaxLength);
-
-        // todo enum
+        
         builder.Property(u => u.Role)
             .IsRequired()
+            .HasConversion<string>()
             .HasMaxLength(MaxLength);
 
         builder.Property(u => u.CreatedAt)
@@ -45,7 +46,7 @@ public class UserConfiguration : IEntityTypeConfiguration<User>
                 Name = "Alice Johnson",
                 Email = "alice@example.com",
                 PasswordHash = "$2a$11$DnMyYgwiyLwkC3iwUsXCOemxG5RlwWxNiKMLdRd75s/xVps2lA.gu",
-                Role = "Admin",
+                Role = Roles.Admin,
                 CreatedAt = DateTime.SpecifyKind(new DateTime(2025, 1, 1), DateTimeKind.Utc)
             },
             new()
@@ -54,7 +55,7 @@ public class UserConfiguration : IEntityTypeConfiguration<User>
                 Name = "Bob Smith",
                 Email = "bob@example.com",
                 PasswordHash = "$2a$11$DnMyYgwiyLwkC3iwUsXCOemxG5RlwWxNiKMLdRd75s/xVps2lA.gu",
-                Role = "User",
+                Role = Roles.User,
                 CreatedAt = DateTime.SpecifyKind(new DateTime(2025, 1, 1), DateTimeKind.Utc)
             },
             new()
@@ -63,7 +64,7 @@ public class UserConfiguration : IEntityTypeConfiguration<User>
                 Name = "Charlie Brown",
                 Email = "charlie@example.com",
                 PasswordHash = "$2a$11$DnMyYgwiyLwkC3iwUsXCOemxG5RlwWxNiKMLdRd75s/xVps2lA.gu",
-                Role = "User",
+                Role = Roles.User,
                 CreatedAt = DateTime.SpecifyKind(new DateTime(2025, 1, 1), DateTimeKind.Utc)
             },
             new()
@@ -72,7 +73,7 @@ public class UserConfiguration : IEntityTypeConfiguration<User>
                 Name = "Diana Prince",
                 Email = "diana@example.com",
                 PasswordHash = "$2a$11$DnMyYgwiyLwkC3iwUsXCOemxG5RlwWxNiKMLdRd75s/xVps2lA.gu",
-                Role = "User",
+                Role = Roles.User,
                 CreatedAt = DateTime.SpecifyKind(new DateTime(2025, 1, 1), DateTimeKind.Utc)
             },
             new()
@@ -81,7 +82,7 @@ public class UserConfiguration : IEntityTypeConfiguration<User>
                 Name = "Evan Wright",
                 Email = "evan@example.com",
                 PasswordHash = "$2a$11$DnMyYgwiyLwkC3iwUsXCOemxG5RlwWxNiKMLdRd75s/xVps2lA.gu",
-                Role = "User",
+                Role = Roles.User,
                 CreatedAt = DateTime.SpecifyKind(new DateTime(2025, 1, 1), DateTimeKind.Utc)
             }
         });

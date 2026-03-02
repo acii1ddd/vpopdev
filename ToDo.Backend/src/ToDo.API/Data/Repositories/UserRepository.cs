@@ -23,7 +23,6 @@ public class UserRepository([FromKeyedServices("Read")] AppDbContext readDbConte
     public async Task<User?> GetByIdAsync(Guid id, CancellationToken ct)
     {
         return await readDbContext.Users
-            .AsNoTracking()
             .FirstOrDefaultAsync(u => u.Id == id, ct);
     }
 

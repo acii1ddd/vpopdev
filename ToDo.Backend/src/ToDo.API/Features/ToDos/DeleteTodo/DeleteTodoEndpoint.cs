@@ -29,6 +29,7 @@ public class DeleteTodoEndpoint : IEndpoint
             return Results.Ok(result);
         })
         .WithName("DeleteTodoV1")
-        .WithOpenApi();
+        .WithOpenApi()
+        .RequireAuthorization("User");
     }
 }

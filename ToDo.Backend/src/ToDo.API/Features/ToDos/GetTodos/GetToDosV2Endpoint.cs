@@ -27,6 +27,7 @@ public class GetToDosV2Endpoint : IEndpoint
             return Results.NotFound();
         })
         .WithName("GetAllTodosV2")
-        .WithOpenApi();
+        .WithOpenApi()
+        .RequireAuthorization("User");
     }
 }

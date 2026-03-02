@@ -28,6 +28,7 @@ public class GetToDosV1Endpoint : IEndpoint
             return Results.Ok(result);
         })
         .WithName("GetAllTodosV1")
-        .WithOpenApi();
+        .WithOpenApi()
+        .RequireAuthorization("User");
     }
 }

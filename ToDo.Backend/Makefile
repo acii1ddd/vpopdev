@@ -7,7 +7,7 @@ migration-add:
 
 # Применить миграции к БД
 migration-update:
-	dotnet ef database update -s ./src/ToDo.API -p ./src/ToDo.API/ --context ./src/ToDo.API.Data.AppDbContext
+	dotnet ef database update -s ./src/ToDo.API -p ./src/ToDo.API/ --context ToDo.API.Data.AppDbContext
 
 # Удалить последнюю миграцию
 migration-remove:

@@ -1,3 +1,5 @@
+using ToDo.API.Data.Models.Enums;
+
 namespace ToDo.API.Data.Models.Entities;
 
 public class User
@@ -10,7 +12,7 @@ public class User
     
     public string PasswordHash { get; set; } = string.Empty;
     
-    public string Role { get; set; } = "User"; // todo enum
+    public Roles Role { get; set; } = Roles.User;
 
     public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
     
