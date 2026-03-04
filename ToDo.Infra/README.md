@@ -27,8 +27,8 @@ High-availability PostgreSQL cluster infrastructure based on Patroni with HAProx
           │                           │                           │
     ┌─────▼─────┐             ┌──────▼──────┐             ┌──────▼──────┐
     │ Patroni-1 │             │ Patroni-2   │             │ Patroni-3   │
-    │  (PG 5432)│             │  (PG 5432)  │             │  (PG 5432)  │
-    │  (API 8008)│             │  (API 8008) │             │  (API 8008) │
+    │ (PG 5432) │             │  (PG 5432)  │             │  (PG 5432)  │
+    │ (API 8008)│             │  (API 8008) │             │  (API 8008) │
     └─────┬─────┘             └──────┬──────┘             └──────┬──────┘
           │                           │                           │
           └───────────────────────────┼───────────────────────────┘
