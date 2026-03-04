@@ -16,15 +16,15 @@ High-availability PostgreSQL cluster infrastructure based on Patroni with HAProx
 ## 🏗️ Architecture
 
 ```
-                    ┌─────────────────────────────────────────────────┐
-                    │              HAProxy                            │
-                    │  Port 5432 → Master (write)                     │
-                    │  Port 5433 → Replicas (read, round-robin)       │
-                    │  Port 8080 → Stats UI                           │
-                    └─────────────────────────────────────────────────┘
-                                      │
-          ┌───────────────────────────┼───────────────────────────┐
-          │                           │                           │
+              ┌─────────────────────────────────────────────┐
+              │              HAProxy                        │
+              │  Port 5432 → Master (write)                 │
+              │  Port 5433 → Replicas (read, round-robin)   │
+              │  Port 8080 → Stats UI                       │
+              └─────────────────────────────────────────────┘
+                                     │
+          ┌──────────────────────────┼───────────────────────────┐
+          │                          │                           │
     ┌─────▼─────┐             ┌──────▼──────┐             ┌──────▼──────┐
     │ Patroni-1 │             │ Patroni-2   │             │ Patroni-3   │
     │ (PG 5432) │             │  (PG 5432)  │             │  (PG 5432)  │
