@@ -1,102 +1,111 @@
 # ToDo.Backend
 
-Backend API для приложения ToDo, написанное на **ASP.NET Core 10**.
+Backend API for the ToDo application built with **ASP.NET Core 10**.
 
-## 📋 Описание
+## 📋 Overview
 
-REST API для управления задачами (ToDo) с поддержкой:
-- CRUD операции для задач
-- JWT аутентификация
-- Версионирование API
-- PostgreSQL (раздельные подключения для чтения/записи)
-- OpenAPI/Swagger документация через Scalar
+REST API for task management (ToDo) with support for:
+- CRUD operations for tasks
+- JWT authentication
+- API versioning
+- PostgreSQL (separate read/write connections)
+- OpenAPI/Swagger documentation via Scalar
 
-## 🛠 Технологии
+## 🛠 Tech Stack
 
 - **.NET 10**
 - **ASP.NET Core** (Minimal APIs)
 - **Entity Framework Core 10**
 - **PostgreSQL**
-- **MediatR** — CQRS паттерн
-- **FluentValidation** — валидация
-- **JWT** — аутентификация
+- **MediatR** — CQRS pattern
+- **FluentValidation** — validation
+- **JWT** — authentication
 - **Scalar.AspNetCore** — OpenAPI UI
 
-## 📁 Структура проекта
+## 📁 Project Structure
 
 ```
 src/
-├── ToDo.API/              # Основной API проект
-│   ├── ConfigurationExtensions/  # DI расширения
-│   ├── Data/              # EF Core, DbContext, репозитории
-│   ├── Dtos/              # DTO классы
-│   ├── EndpointSettings/  # Настройки эндпоинтов
-│   ├── Features/          # Фичи по CQRS (ToDos, Users)
+├── ToDo.API/              # Main API Project
+│   ├── ConfigurationExtensions/  # DI extensions
+│   ├── Data/              # EF Core, DbContext, repositories
+│   ├── Dtos/              # DTO classes
+│   ├── EndpointSettings/  # Endpoint settings
+│   ├── Features/          # CQRS features (ToDos, Users)
 │   └── Program.cs
-├── ToDo.Shared/           # Общие классы и утилиты
+├── ToDo.Shared/           # Shared classes and utilities
 tests/
-├── ToDo.API.Tests/        # Unit/API тесты
-└── ToDo.Features.Tests/   # Тесты фич
+├── ToDo.API.Tests/        # Unit/API Tests
+└── ToDo.Features.Tests/   # Feature tests
 ```
 
-## 🚀 Быстрый старт
+## 🚀 Quick Start
 
-### Требования
+### Requirements
 
 - .NET 10 SDK
-- PostgreSQL (два инстанса: порт 5432 — запись, 5433 — чтение)
+- PostgreSQL (two instances: port 5432 — write, port 5433 — read)
 
-### Запуск
+### Run
 
 ```bash
 dotnet restore
 dotnet run --project src/ToDo.API
 ```
 
-API будет доступно на `http://localhost:6767`
+API will be available at `http://localhost:6767`
 
-### Миграции
+### Migrations
 
 ```bash
-# Создать миграцию
+# Add migration
 make migration-add name=MigrationName
 
-# Применить миграции
+# Apply migrations
 make migration-update
 
-# Откатить последнюю миграцию
+# Rollback last migration
 make migration-remove
 ```
 
-## ⚙️ Конфигурация
+## ⚙️ Configuration
 
-Основные настройки в `appsettings.json`:
+Main settings in `appsettings.json`:
 
-| Параметр | Описание |
-|----------|----------|
-| `ConnectionStrings:ReadConnection` | PostgreSQL для чтения (порт 5433) |
-| `ConnectionStrings:WriteConnection` | PostgreSQL для записи (порт 5432) |
-| `Jwt:Key` | Секретный ключ для JWT |
-| `Jwt:Issuer` | Издатель токена |
-| `Jwt:Audience` | Аудитория токена |
-| `Jwt:ExpiresInMinutes` | Время жизни токена (мин) |
+| Parameter | Description |
+|-----------|-------------|
+| `ConnectionStrings:ReadConnection` | PostgreSQL for read (port 5433) |
+| `ConnectionStrings:WriteConnection` | PostgreSQL for write (port 5432) |
+| `Jwt:Key` | Secret key for JWT |
+| `Jwt:Issuer` | Token issuer |
+| `Jwt:Audience` | Token audience |
+| `Jwt:ExpiresInMinutes` | Token lifetime (minutes) |
 
 ## 📦 API Endpoints
 
-| Метод | Endpoint | Описание |
-|-------|----------|----------|
-| GET | `/api/v1/todos` | Получить все задачи |
-| GET | `/api/v1/todos/{id}` | Получить задачу по ID |
-| POST | `/api/v1/todos` | Создать задачу |
-| PUT | `/api/v1/todos/{id}` | Обновить задачу |
-| DELETE | `/api/v1/todos/{id}` | Удалить задачу |
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| GET | `/api/v1/todos` | Get all tasks |
+| GET | `/api/v1/todos/{id}` | Get task by ID |
+| POST | `/api/v1/todos` | Create task |
+| PUT | `/api/v1/todos/{id}` | Update task |
+| DELETE | `/api/v1/todos/{id}` | Delete task |
 
-## 🧪 Тесты
+## 🧪 Tests
 
 ```bash
 dotnet test
 ```
 
-## 📝 Статус разработки
+## 📝 Development Status
 
-Проект в активной разработке. Возможны изменения в API и структуре.
+Project is under active development. API and structure changes are possible.
+
+## 📈 Roadmap
+
+Planned backend enhancements:
+
+- [ ] **User CRUD** — user management via API
+- [ ] **Serilog + ELK Stack** — centralized logging (Elasticsearch, Logstash, Kibana)
+- [ ] **Redis Cache** — caching frequently requested data
+- [ ] **Load Testing** — determine maximum system RPS and optimize if needed
