@@ -106,6 +106,7 @@ Project is under active development. API and structure changes are possible.
 Planned backend enhancements:
 
 - [ ] **User CRUD** — user management via API
+- [ ] **Dockerize an application**
 - [ ] **Serilog + ELK Stack** — centralized logging (Elasticsearch, Logstash, Kibana)
 - [ ] **Redis Cache** — caching frequently requested data
 - [ ] **Load Testing** — determine maximum system RPS and optimize if needed
