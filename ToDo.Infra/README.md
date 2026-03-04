@@ -115,10 +115,10 @@ docker compose logs -f patroni-1
 # Check cluster via Patroni API
 http://localhost:8080/master
 http://localhost:8080/replica
-```
 
 # View HAProxy metrics
-curl http://localhost:8080/;csv
+http://localhost:8080
+```
 
 ## 🔧 Configuration
 
